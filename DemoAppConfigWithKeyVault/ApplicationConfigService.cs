@@ -17,13 +17,13 @@ namespace DemoAppConfigWithKeyVault
         {
             _config = configuration;
             _configRefresher = refresherProvider.Refreshers.First();
+            _configRefresher.TryRefreshAsync();
         }
 
         public ApplicationConfig GetConfig
         {
             get
             {
-                _configRefresher.TryRefreshAsync();
                 var configSection = _config.GetSection("DemoAppConfigWithKeyVault");
                 return configSection.Get<ApplicationConfig>();
             }
